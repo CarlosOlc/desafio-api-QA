@@ -1,0 +1,182 @@
+{
+	"info": {
+		"_postman_id": "3f1dafc3-f855-4d3f-9e3d-1539d1dfed7e",
+		"name": "desafio-api-QA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37730856",
+		"_collection_link": "https://aa1111-4303.postman.co/workspace/c2cd023e-9dab-4905-a31f-b36dedf4775a/collection/37730856-3f1dafc3-f855-4d3f-9e3d-1539d1dfed7e?action=share&source=collection_link&creator=37730856"
+	},
+	"item": [
+		{
+			"name": "login",
+			"item": []
+		},
+		{
+			"name": "usuarios",
+			"item": [
+				{
+					"name": "buscar usuarios",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/usuarios",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"usuarios"
+							],
+							"query": [
+								{
+									"key": "_id",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "nome",
+									"value": "Fulano da Silva",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": "beltrano@qa.com.br",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "123",
+									"disabled": true
+								},
+								{
+									"key": "administrador",
+									"value": "true",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "produtos",
+			"item": [],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "carrinhos",
+			"item": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{authToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"const requestBody = {\r",
+					"    \"email\": pm.environment.get(\"email\"),\r",
+					"    \"password\": pm.environment.get(\"senha\")\r",
+					"};\r",
+					"\r",
+					"pm.sendRequest(\r",
+					"    {\r",
+					"        url: pm.environment.get(\"url\") + \"/login\",\r",
+					"        method: \"POST\",\r",
+					"        header: {\r",
+					"            \"Content-Type\": \"application/json\"\r",
+					"        },\r",
+					"        body: {\r",
+					"            mode: \"raw\",\r",
+					"            raw: JSON.stringify(requestBody)\r",
+					"        }\r",
+					"    },\r",
+					"    function (err, res) {\r",
+					"        const data = res.json();\r",
+					"        const token = data.authorization.split(\" \")[1];\r",
+					"        pm.environment.set(\"authToken\", token);\r",
+					"    }\r",
+					");"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
